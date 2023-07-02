@@ -7,31 +7,22 @@ if (!isset($_SESSION["login_pelanggan"]) || $_SESSION["login_pelanggan"] !== tru
 }
 $id_user = $_SESSION['user'];
 
-
 if (isset($_POST['pesan'])) {
-    if (input($_POST)) {
+    if (input($_POST) > 0) {
         echo "data berhasil ditambahkan";
     }
 }
-$id = $_GET['id'];
-$data = mysqli_query($conn, "SELECT user.email, pelanggan.nama, pelanggan.alamat, pelanggan.nomor_hp
+$data = mysqli_query($conn, "SELECT pelanggan.id_pelanggan, user.email, pelanggan.nama, pelanggan.alamat, pelanggan.nomor_hp
                              FROM pelanggan 
                              JOIN user ON pelanggan.id_user = user.id_user 
-                             WHERE pelanggan.id_pelanggan=$id");
-
+                             WHERE user.id_user='$id_user'");
 $d = mysqli_fetch_array($data);
-if (isset($_POST['edit'])) {
-    if (update_profil($_POST, $id)) {
-        echo "berhasil";
-    }
-
-}
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-    <title>Edit Profil</title>
+    <title>Profil</title>
     <meta charset="UTF-8">
     <meta name="description" content="SolMusic HTML Template">
     <meta name="keywords" content="music, html">
@@ -44,6 +35,10 @@ if (isset($_POST['edit'])) {
     <link
         href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap"
         rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@200&family=K2D:wght@800&display=swap"
+		rel="stylesheet">
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
@@ -52,7 +47,7 @@ if (isset($_POST['edit'])) {
     <link rel="stylesheet" href="css/slicknav.min.css" />
 
     <!-- Main Stylesheets -->
-	<link rel="stylesheet" href="css/style2.css" />
+	<link rel="stylesheet" href="css/style.css" />
 
 
 
@@ -82,15 +77,9 @@ if (isset($_POST['edit'])) {
 
         .card:hover {
             transform: scale(0.98);
-            box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.25);
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
         }
 
-        .card button {
-            background: white;
-            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 20px;
-            color: #000000;
-        }
 
         .card button:hover {
             color: #000000;
@@ -98,17 +87,30 @@ if (isset($_POST['edit'])) {
             border-color: #D9D9D9;
         }
 
+        .card a {
+            background: #ff2525;
+            border-radius: 10px;
+        }
+
         .btn {
-            background-color: #fc0254;
-            color: rgb(238, 238, 238);
+            color: white;
             border-radius: 10px;
             cursor: pointer;
         }
 
         .btn:hover {
-            border-color: #000000;
-            background-color: #ededed;
-            transform: scale(1.1);
+            color: #000000;
+            background-color: #D9D9D9;
+            border-color: #D9D9D9;
+        }
+
+        .center-btn {
+        display: flex;
+        justify-content: center;
+        }
+
+        section a {
+            margin-right: 20px;
         }
 
         .whatsapp-button {
@@ -136,12 +138,11 @@ if (isset($_POST['edit'])) {
             color: white;
             width: 100%;
             /* Menggunakan lebar 100% agar kartu memenuhi lebar container */
-            max-width: 800px;
+            max-width: 500px;
             /* Mengatur lebar maksimum kartu */
             border-radius: 20px;
-            background: #1c294a;
+            background: #212121;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(2px);
             height: 100%;
         }
 
@@ -161,10 +162,10 @@ if (isset($_POST['edit'])) {
         }
 
         h5 {
-            color: #fc0254;
+            color: #ff2525;
             text-align: center;
             font-size: 60px;
-            font-family: 'Baloo Bhaijaan 2', cursive;
+            font-family: 'K2D', sans-serif;
         }
 
         .card p {
@@ -184,12 +185,12 @@ if (isset($_POST['edit'])) {
 
         .card input,
         .card select {
-            border-radius: 100px;
+            border-radius: 10px;
             background: #F1F1F1;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
-            height: 50px;
+            height: 35px;
             color: black;
-            font-size: 20px;
+            font-size: 17px;
             font-family: 'Cairo', sans-serif;
 
         }
@@ -201,7 +202,7 @@ if (isset($_POST['edit'])) {
         .card input[type="submit"],
         .card input[type="button"] {
             border-radius: 100px;
-            background: #fc0254;
+            background: #212121;
             border-color: #C13584;
             width: 200px;
             height: 50px;
@@ -209,29 +210,17 @@ if (isset($_POST['edit'])) {
             color: #FFF;
             font-size: 20px;
             font-family: 'Baloo Bhaijaan 2', cursive;
-        }
-        .btn{
-            border-radius: 100px;
-            background: #fc0254;
-            border-color: #C13584;
-            width: 200px;
-            height: 50px;
-            flex-shrink: 0;
-            color: #FFF;
-            font-size: 20px;
-            font-family: 'Baloo Bhaijaan 2', cursive;
-        }
-        .card input[type="submit"]:hover,
-        .card input[type="button"]:hover {
-            color: black;
-            background-color: white;
-            border: none;
         }
 
         footer {
             margin-top: 100px;
         }
+
         span{
+            color: white;
+        }
+
+        hr {
             color: white;
         }
     </style>
@@ -239,14 +228,14 @@ if (isset($_POST['edit'])) {
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <!-- Header section -->
     <header class="header-section clearfix">
         <a href="index.html" class="site-logo">
-            <img src="img/logo.png" alt="">
+            <img src="img/logo_repair.png" alt="">
         </a>
 
         <div class="header-right">
@@ -273,23 +262,17 @@ if (isset($_POST['edit'])) {
             </li>
             <li><a href="contact.php">Contact</a></li>
         </ul>
-
     </header>
-
     <!-- Header section end -->
 
     <!-- Intro section -->
     <section class="intro-section spad">
     <div class="container container-form">
-        <div class="card">
-
-            <h5 class="card-title">Profil <span> Saya</h5><span>
-            <hr>
+        <div class="card"><br>
+            <h5 class="card-title">Profil <span> Saya</h5><span><br>
             <form action="" method="post">
                 <div class="card-body">
                     <div class="container text-left">
-
-
                         <div class="row row-cols-4">
                             <div class="col-3">Nama</div>
                             <div class="col-1">:</div>
@@ -300,7 +283,8 @@ if (isset($_POST['edit'])) {
                             <div class="col-3">Email</div>
                             <div class="col-1">:</div>
                             <div class="col-8">
-                                <?php echo $d['email']; ?> <br><br>
+                                <input type="text" name="email" class="form-control"
+                                    value="<?php echo $d['email']; ?>" disabled><br>
                             </div>
                             <div class="col-3">No HP</div>
                             <div class="col-1">:</div>
@@ -314,29 +298,28 @@ if (isset($_POST['edit'])) {
                                 <input type="text" name="alamat" class="form-control"
                                     value="<?php echo $d['alamat']; ?>"><br>
                             </div>
-
-                        </div>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                            <a class="btn" href="profil.php" role="button">Kembali</a>
-                            <button type="submit" name="edit" class="btn ">Edit</button>
+                        </div><br>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center center-btn">
+                            <a class="btn" href="profile.php" role="button">Kembali</a>
+                            <button type="submit" name="edit" class="btn btn-success">Edit</button>
                         </div>
                     </div>
                 </div><br>
-
-
             </form>
         </div>
     </div>
     </section>
     <!-- Intro section end -->
 
-    <hr>
     <!-- Footer section -->
     <footer class="footer-section">
         <div class="container">
             <div class="row">
-                <div class="col-xl-6 col-lg-7 order-lg-2">
-                    <div class="footer-widget">
+                <div class="col-xl-9 col-lg-8 order-lg-1">
+                    <img src="img/logo_repair.png" alt="">
+                </div>
+                <div class="col-xl-3 col-lg-4 order-lg-2">
+                    <div class="footer-widget"><br>
                         <h2>Contact Us</h2>
                         <ul class="contact-list">
                             <li><a href="https://wa.me/6285175002568" target="_blank"><i class="fa fa-whatsapp"
@@ -347,22 +330,15 @@ if (isset($_POST['edit'])) {
                                         style="color: #007BFF;"></i></a> repairlectric@gmail.com</li>
                         </ul>
                     </div>
-
                 </div>
-                <div class="col-xl-6 col-lg-5 order-lg-1">
-                    <img src="img/logo.png" alt="">
-                </div>
-            </div>
-
+            </div><br>
         </div>
         <div class="copyright">
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;
-            <script>document.write(new Date().getFullYear());</script> All rights reserved | This template
-            is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com"
-                target="_blank">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-        </div>
+			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+			Copyright &copy;
+			<script>document.write(new Date().getFullYear());</script> by RepairLectric</a>
+			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+		</div>
     </footer>
     <!-- Footer section end -->
 
@@ -373,7 +349,5 @@ if (isset($_POST['edit'])) {
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/main.js"></script>
-
 </body>
-
 </html>
