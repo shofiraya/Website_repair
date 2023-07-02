@@ -212,6 +212,11 @@ $d = mysqli_fetch_array($data);
             font-family: 'Baloo Bhaijaan 2', cursive;
         }
 
+        .col-3, .col-1, .col-8 {
+            margin: 0px;
+            padding: 0px;
+        }
+
         footer {
             margin-top: 100px;
         }
@@ -228,18 +233,16 @@ $d = mysqli_fetch_array($data);
 
 <body>
     <!-- Page Preloder -->
-    <!-- <div id="preloder">
+    <div id="preloder">
         <div class="loader"></div>
-    </div> -->
+    </div>
 
     <!-- Header section -->
     <header class="header-section clearfix">
         <a href="index.html" class="site-logo">
             <img src="img/logo_repair.png" alt="">
         </a>
-
         <div class="header-right">
-
         <div class="user-panel">
 				<?php if (!isset($_SESSION["login_pelanggan"]) || $_SESSION["login_pelanggan"] !== true) {?>
 					<a href="login.php" class="hr-btn">Login</a><span>|</span>
