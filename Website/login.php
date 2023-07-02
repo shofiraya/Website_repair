@@ -23,8 +23,8 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
         $_SESSION["login_pelanggan"] = true;
     }
 }
-
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -56,22 +56,83 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     <!-- Main Stylesheets -->
     <link rel="stylesheet" href="css/style.css" />
 
-
-
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <style>
+        h1 {
+            color: white;
+            font-size: 60px;
+        }
+        label, p {
+            color: #cacaca;
+            text-align: center;
+        }
 
+        .login-section .container-form,
+        .registrasi-section .container-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* Mengatur tinggi container agar mengisi tinggi viewport */
+        }
+
+        .login-section p,
+        .registrasi-section p {
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+
+        .login-section .card,
+        .registrasi-section .card {
+            background: #ffffff;
+            padding-top: 20px;
+            color: white;
+            width: 70%;
+            /* Menggunakan lebar 100% agar kartu memenuhi lebar container */
+            max-width: 500px;
+            /* Mengatur lebar maksimum kartu */
+            background: #212121;
+            height: 100%;
+            box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .login-section .card input[type="submit"],
+        .registrasi-section .card input[type="submit"] {
+            border-radius: 100px;
+            background: #ff2525;
+            border-color: #fc0254;
+            width: 200px;
+            height: 50px;
+            flex-shrink: 0;
+            color: #FFF;
+            font-size: 20px;
+        }
+
+        .login-section .card input[type="submit"]:hover,
+        .login-section .card input[type="button"]:hover,
+        .registrasi-section .card input[type="submit"]:hover,
+        .registrasi-section .card input[type="button"]:hover {
+            color: black;
+            background-color: rgb(192, 192, 192);
+            border: none;
+        }
+
+        .login-section label, .registrasi-section label {
+            color: #868686;
+            color: #cacaca;
+        }
     </style>
 </head>
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    <!-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> -->
+    
     <!-- Header section -->
     <header class="header-section clearfix">
         <a href="index.html" class="site-logo">
@@ -107,16 +168,16 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     <!-- Header section end -->
     <section class="registrasi-section spad">
         <div class="container container-form">
-            <div class="card">
-           
+            <div class="card"><br>
                 <h1 class="card-title" align="center">Login</h1>
+                <p><em>Silahkan masukkan informasi akun anda.</em></p>
                 <div class="card-body">
                     <form action="#" method="post">
                         <input type="text" class="form-control" id="merekInput" placeholder="Email" autocomplete="off"
-                            name="email">
+                            name="email" required>
                         <br>
                         <input type="password" class="form-control" id="merekInput" placeholder="Password"
-                            autocomplete="off" name="password"><br>
+                            autocomplete="off" name="password" required><br>
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1" name="cekbox">
                             <label class="form-check-label" for="exampleCheck1">Remember Me</label>
@@ -135,8 +196,11 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     <footer class="footer-section">
         <div class="container">
             <div class="row">
-                <div class="col-xl-6 col-lg-7 order-lg-2">
-                    <div class="footer-widget">
+                <div class="col-xl-9 col-lg-8 order-lg-1">
+                    <img src="img/logo_repair.png" alt="">
+                </div>
+                <div class="col-xl-3 col-lg-4 order-lg-2">
+                    <div class="footer-widget"><br>
                         <h2>Contact Us</h2>
                         <ul class="contact-list">
                             <li><a href="https://wa.me/6285175002568" target="_blank"><i class="fa fa-whatsapp"
@@ -147,13 +211,8 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
                                         style="color: #007BFF;"></i></a> repairlectric@gmail.com</li>
                         </ul>
                     </div>
-
                 </div>
-                <div class="col-xl-6 col-lg-5 order-lg-1">
-                    <img src="img/logo_repair.png" alt="">
-                </div>
-            </div>
-
+            </div><br>
         </div>
         <div class="copyright">
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -170,7 +229,5 @@ if (isset($_COOKIE['id']) && isset($_COOKIE['key'])) {
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/main.js"></script>
-
 </body>
-
 </html>
