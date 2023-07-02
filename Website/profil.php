@@ -12,12 +12,10 @@ if (isset($_POST['pesan'])) {
         echo "data berhasil ditambahkan";
     }
 }
-
 $data = mysqli_query($conn, "SELECT pelanggan.id_pelanggan, user.email, pelanggan.nama, pelanggan.alamat, pelanggan.nomor_hp
                              FROM pelanggan 
                              JOIN user ON pelanggan.id_user = user.id_user 
                              WHERE user.id_user='$id_user'");
-
 $d = mysqli_fetch_array($data);
 ?>
 <!DOCTYPE html>
@@ -79,7 +77,7 @@ $d = mysqli_fetch_array($data);
 
         .card:hover {
             transform: scale(0.98);
-            box-shadow: 0px 0px 30px 1px rgba(0, 0, 0, 0.25);
+            box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
         }
 
         .card button {
@@ -96,8 +94,7 @@ $d = mysqli_fetch_array($data);
         }
 
         .btn {
-            background-color: #fc0254;
-            color: rgb(238, 238, 238);
+            color: black;
             border-radius: 10px;
             cursor: pointer;
         }
@@ -106,6 +103,11 @@ $d = mysqli_fetch_array($data);
             border-color: #000000;
             background-color: #ededed;
             transform: scale(1.1);
+        }
+
+        .center-btn {
+        display: flex;
+        justify-content: center;
         }
 
         .whatsapp-button {
@@ -133,12 +135,11 @@ $d = mysqli_fetch_array($data);
             color: white;
             width: 100%;
             /* Menggunakan lebar 100% agar kartu memenuhi lebar container */
-            max-width: 800px;
+            max-width: 500px;
             /* Mengatur lebar maksimum kartu */
             border-radius: 20px;
             background: #212121;
             box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-            backdrop-filter: blur(2px);
             height: 100%;
         }
 
@@ -161,7 +162,7 @@ $d = mysqli_fetch_array($data);
             color: #ff2525;
             text-align: center;
             font-size: 60px;
-            font-family: 'Baloo Bhaijaan 2', cursive;
+            font-family: 'K2D', sans-serif;
         }
 
         .card p {
@@ -208,17 +209,15 @@ $d = mysqli_fetch_array($data);
             font-family: 'Baloo Bhaijaan 2', cursive;
         }
 
-        .card input[type="submit"]:hover,
-        .card input[type="button"]:hover {
-            color: black;
-            background-color: white;
-            border: none;
-        }
-
         footer {
             margin-top: 100px;
         }
+
         span{
+            color: white;
+        }
+
+        hr {
             color: white;
         }
     </style>
@@ -260,9 +259,7 @@ $d = mysqli_fetch_array($data);
             </li>
             <li><a href="contact.php">Contact</a></li>
         </ul>
-
     </header>
-
     <!-- Header section end -->
 
     <!-- Intro section -->
@@ -270,7 +267,6 @@ $d = mysqli_fetch_array($data);
         <div class="container container-form">
             <div class="card">
                 <h5 class="card-title">Profil <span>Saya</h5><span>
-                <hr>
                 <div class="card-body">
                     <div class="container text-left">
                         <div class="row row-cols-4">
@@ -296,26 +292,26 @@ $d = mysqli_fetch_array($data);
                             </div>
                         </div>
                     </div><br>
-                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-                        <a class="btn " href="edit_profil.php?id=<?php echo $d['id_pelanggan']; ?>"
+                    edit_profil.php?id=<?php echo $d['id_pelanggan']; ?>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center center-btn">
+                        <a class="btn btn-warning" href="edit_profil.php?id=<?php echo $d['id_pelanggan']; ?>"
                             role="button">Edit</a>
                     </div>
-
                 </div><br>
-
             </div>
         </div>
-
     </section>
     <!-- Intro section end -->
 
-    <hr>
     <!-- Footer section -->
     <footer class="footer-section">
         <div class="container">
             <div class="row">
-                <div class="col-xl-6 col-lg-7 order-lg-2">
-                    <div class="footer-widget">
+                <div class="col-xl-9 col-lg-8 order-lg-1">
+                    <img src="img/logo_repair.png" alt="">
+                </div>
+                <div class="col-xl-3 col-lg-4 order-lg-2">
+                    <div class="footer-widget"><br>
                         <h2>Contact Us</h2>
                         <ul class="contact-list">
                             <li><a href="https://wa.me/6285175002568" target="_blank"><i class="fa fa-whatsapp"
@@ -326,13 +322,8 @@ $d = mysqli_fetch_array($data);
                                         style="color: #007BFF;"></i></a> repairlectric@gmail.com</li>
                         </ul>
                     </div>
-
                 </div>
-                <div class="col-xl-6 col-lg-5 order-lg-1">
-                    <img src="img/logo_repair.png" alt="">
-                </div>
-            </div>
-
+            </div><br>
         </div>
         <div class="copyright">
 			<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -350,7 +341,5 @@ $d = mysqli_fetch_array($data);
     <script src="js/owl.carousel.min.js"></script>
     <script src="js/mixitup.min.js"></script>
     <script src="js/main.js"></script>
-
 </body>
-
 </html>
