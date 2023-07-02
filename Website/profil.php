@@ -209,6 +209,11 @@ $d = mysqli_fetch_array($data);
             font-family: 'Baloo Bhaijaan 2', cursive;
         }
 
+        .col-3, .col-1, .col-8 {
+            margin: 0px;
+            padding: 0px;
+        }
+
         footer {
             margin-top: 100px;
         }
@@ -238,7 +243,7 @@ $d = mysqli_fetch_array($data);
         <div class="header-right">
 
         <div class="user-panel">
-				<?php if (!isset($_SESSION["login_pelanggan"]) || $_SESSION["login_pelanggan"] !== true) {?>
+				<?php if (!isset($_SESSION["login_pelanggan"]) || $_/SESSION["login_pelanggan"] !== true) {?>
 					<a href="login.php" class="hr-btn">Login</a><span>|</span>
 					<a href="registrasi.php" class="register">Create an account</a>
 				<?php }else{ ?>
@@ -292,7 +297,6 @@ $d = mysqli_fetch_array($data);
                             </div>
                         </div>
                     </div><br>
-                    edit_profil.php?id=<?php echo $d['id_pelanggan']; ?>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-center center-btn">
                         <a class="btn btn-warning" href="edit_profil.php?id=<?php echo $d['id_pelanggan']; ?>"
                             role="button">Edit</a>
